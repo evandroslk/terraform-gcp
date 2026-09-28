@@ -1,0 +1,6 @@
+customer_id,name,subscription_status
+c001,João da Silva,ACTIVE
+c002,Maria Souza,ACTIVE
+c003,Carlos Oliveira,CANCELED
+c004,Ana Santos,TRIAL
+c005,Pedro Almeida,ACTIVE

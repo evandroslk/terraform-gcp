@@ -1,0 +1,2 @@
+google-cloud-spanner
+google-cloud-storage
