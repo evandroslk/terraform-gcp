@@ -22,8 +22,8 @@ resource "google_project_iam_custom_role" "compute_inventory_viewer" {
   ]
 }
 
-# resource "google_project_iam_member" "sa_compute_inventory" {
-#   project = var.project_id
-#   role = google_project_iam_custom_role.compute_inventory_viewer.name
-#   member = "serviceAccount:${google_service_account.bucket_reader.email}"
-# }
+resource "google_project_iam_member" "sa_compute_inventory" {
+  project = var.project_id
+  role = google_project_iam_custom_role.compute_inventory_viewer.name
+  member = "serviceAccount:${google_service_account.bucket_reader.email}"
+}
