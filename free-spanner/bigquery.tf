@@ -7,9 +7,32 @@ resource "google_bigquery_table" "spanner_export" {
   dataset_id = google_bigquery_dataset.analytics.dataset_id
   table_id = "spanner_customers"
 
+  schema = jsonencode([
+    {
+      name = "customer_id"
+      type = "STRING"
+      mode = "NULLABLE"
+    },
+    {
+      name = "name"
+      type = "STRING"
+      mode = "NULLABLE"
+    },
+    {
+      name = "subscription_status"
+      type = "STRING"
+      mode = "NULLABLE"
+    }
+  ])
+
   external_data_configuration {
-    autodetect = true
+    autodetect = false
     source_format = "CSV"
+    
+    csv_options {
+      skip_leading_rows = 1
+      quote = "\""
+    }
 
     source_uris = [
         "${google_storage_bucket.spanner_exports.url}/customers.csv"

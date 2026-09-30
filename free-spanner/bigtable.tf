@@ -22,10 +22,6 @@ resource "google_bigtable_table" "activity" {
   }
 }
 
-resource "google_bigtable_row" "name" {
-  
-}
-
 output "activity_bigtable_name" {
   value = google_bigtable_table.activity.id
 }

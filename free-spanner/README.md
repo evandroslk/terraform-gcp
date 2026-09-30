@@ -89,6 +89,28 @@ cbt --instance teste-bigtable --project evandro-project set customer_activity c0
 
 ## Testes no BigQuery
 
+- Consulta básica em uma tabela externa
+
 ```
 bq query --use_legacy_sql=false 'SELECT * FROM `evandro-project.fitjourney_analytics.spanner_customers`'
+```
+
+- Join entre o export do .csv e os dados do BigTable. OBS: É preciso tratar as informações do BigTable que são exportadas em Bsae64
+
+```
+SELECT
+  s.customer_id,
+  s.name,
+  s.subscription_status,
+  c.name AS event_type,
+  CAST(c.cell[SAFE_OFFSET(0)].value AS STRING) AS event_value,
+  c.cell[SAFE_OFFSET(0)].timestamp AS event_timestamp
+FROM
+  `evandro-project.fitjourney_analytics.spanner_customers` AS s
+JOIN
+  `evandro-project.fitjourney_analytics.bigtable_activity` AS b
+ON
+  s.customer_id = CAST(b.rowkey AS STRING)
+CROSS JOIN
+  UNNEST(b.events.column) AS c;
 ```
