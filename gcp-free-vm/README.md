@@ -5,6 +5,12 @@
 gcloud compute ssh user@free-vm --zone us-central1-a --tunnel-through-iap
 ```
 
+## SCP vai IAP
+
+```
+gcloud compute scp --recurse ./boto-packages/ evandro@free-vm:/tmp/ --zone us-central1-a --tunnel-through-iap
+```
+
 ## Acessar endpoint de metadados na instância
 ```
 curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/

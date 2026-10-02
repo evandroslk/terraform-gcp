@@ -10,6 +10,7 @@ resource "google_bigtable_instance" "teste_bigtable" {
 
   lifecycle {
     ignore_changes = [ deletion_protection, instance_type ]
+    prevent_destroy = true
   }
 }
 

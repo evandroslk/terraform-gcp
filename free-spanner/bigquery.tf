@@ -6,6 +6,7 @@ resource "google_bigquery_dataset" "analytics" {
 resource "google_bigquery_table" "spanner_export" {
   dataset_id = google_bigquery_dataset.analytics.dataset_id
   table_id = "spanner_customers"
+  deletion_protection = false
 
   schema = jsonencode([
     {
@@ -43,6 +44,7 @@ resource "google_bigquery_table" "spanner_export" {
 resource "google_bigquery_table" "bigtable_activity" {
   dataset_id = google_bigquery_dataset.analytics.dataset_id
   table_id = "bigtable_activity"
+  deletion_protection = false
 
   external_data_configuration {
     source_format = "BIGTABLE"
